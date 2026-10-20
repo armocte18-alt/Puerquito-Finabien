@@ -132,6 +132,19 @@ class PuerquitoTest extends TestCase
         $this->getJson("/api/jugadores/{$d['codigo']}")->assertOk()->assertJsonPath('jugadas.puerquito', 1);
     }
 
+    public function test_estado_muestra_el_ranking_y_quien_queda_fuera_del_evento(): void
+    {
+        $d = $this->iniciar();
+        $this->travel(60)->seconds();
+        $puntos = $this->postJson("/api/partidas/{$d['partida']}/terminar", ['atrapados' => []])->assertOk()->json('puntos');
+        Jugador::create(['codigo' => 'ZZZZZ', 'nombre' => 'Antes', 'edad' => 30, 'grupo' => 'adultos', 'avatar' => 'buho', 'puntos' => 90, 'puntos_totales' => 90]);
+
+        $this->artisan('reto:estado')
+            ->expectsOutputToContain("Ana {$puntos}")
+            ->expectsOutputToContain('1 jugadores son de otro evento o de antes de crearlo')
+            ->assertSuccessful();
+    }
+
     public function test_limpiar_borra_jugadores_y_devuelve_existencias(): void
     {
         $premio = Premio::orderBy('costo')->first();

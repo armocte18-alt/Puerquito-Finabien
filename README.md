@@ -134,6 +134,14 @@ php artisan optimize
 4. Borra los datos de prueba si hiciste pruebas (ver abajo).
 5. En el kiosco toca **Pantalla completa** (o F11) y deja la pantalla en el inicio.
 
+## Revisar el ranking
+
+```powershell
+php artisan reto:estado
+```
+
+Muestra qué base de datos se está usando, el evento activo, el ranking tal como lo ve la portada y las últimas 10 partidas (si terminaron y si sumaron puntos). Sirve para saber por qué alguien no aparece en **Mejores puntajes**.
+
 ## Borrar datos de prueba
 
 ```powershell
