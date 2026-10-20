@@ -41,19 +41,35 @@ El juego se pausa solo si la ventana pierde el foco y respeta
 
 ## Instalación
 
-Requisitos: PHP 8.3+, Composer y SQLite (o cualquier base de datos soportada por Laravel).
+Requisitos: PHP 8.3+ (con `pdo_mysql`, `mbstring`, `openssl` y `fileinfo`),
+Composer y MySQL 5.7+ o MariaDB 10.3+.
 
-```sh
-composer install
-cp .env.example .env
-php artisan key:generate
-touch database/database.sqlite
-php artisan migrate
-php artisan serve
-```
+1. Crea la base de datos:
+
+   ```sql
+   CREATE DATABASE puerquito CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+   ```
+
+2. Instala el proyecto:
+
+   ```sh
+   composer install
+   cp .env.example .env        # en Windows: copy .env.example .env
+   php artisan key:generate
+   ```
+
+3. Pon el usuario y la contraseña de MySQL en `.env` (`DB_USERNAME`, `DB_PASSWORD`) y crea las tablas:
+
+   ```sh
+   php artisan migrate
+   php artisan serve
+   ```
 
 Abre `http://localhost:8000`. No hace falta compilar assets: el juego usa
 JavaScript y CSS planos en `public/`.
+
+Para usar SQLite en lugar de MySQL, pon `DB_CONNECTION=sqlite`, borra las demás
+líneas `DB_*` y crea el archivo vacío `database/database.sqlite`.
 
 ## Estructura
 
