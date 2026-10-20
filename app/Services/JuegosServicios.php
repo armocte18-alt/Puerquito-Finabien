@@ -203,6 +203,7 @@ class JuegosServicios
             'trampas' => collect($contenido['trampas'])->map(fn ($d) => Arr::only($d, ['texto', 'leccion'])),
             'poderes' => $contenido['poderes'],
             'sprite' => asset('img/alcancia-sprite.png'),
+            'fibi' => asset('img/fibi.png'),
             'cierre' => $contenido['cierre'][$grupo],
         ];
 

@@ -15,7 +15,7 @@
     <div id="app" data-api="{{ url('/api') }}">
         <div class="pantalla">
             <div class="cargando" style="display:grid;justify-items:center;gap:1rem">
-                <img src="{{ asset('img/logo-circular.png') }}" alt="Financiera para el Bienestar" width="140" height="140">
+                <img src="{{ asset('img/alcancia-sprite.png') }}" alt="Alcancía de Financiera para el Bienestar" width="180" style="animation:flotar 2.4s ease-in-out infinite">
                 Cargando Reto Finabien…
             </div>
         </div>

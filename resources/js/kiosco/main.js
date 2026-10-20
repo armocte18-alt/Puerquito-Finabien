@@ -21,6 +21,13 @@ document.documentElement.style.setProperty('--foto-sucursal', `url("${RAIZ}/img/
 const PANTALLAS_SUCURSAL = ['inicio', 'registro', 'codigo', 'codigo-nuevo'];
 const fibi = (clase, alt = 'FIBI, imagen institucional de FINABIEN') =>
     `<img class="${clase}" src="${IMG_FIBI}" alt="${alt}" onerror="this.hidden=true">`;
+// El marranito: la alcancía de FINABIEN, protagonista del Puerquito Ahorrador.
+const IMG_MARRANITO = `${RAIZ}/img/alcancia-sprite.png`;
+const marranito = (clase, alt = '') =>
+    `<img class="${clase}" src="${IMG_MARRANITO}" alt="${alt}" onerror="this.hidden=true">`;
+const ilustracion = (info, clase = 'ilustra') => info.imagen === 'marranito'
+    ? marranito(`${clase} ilustra-img`)
+    : `<span class="${clase}" aria-hidden="true">${info.icono}</span>`;
 
 const S = {
     config: null,
@@ -67,7 +74,7 @@ const JUEGOS = {
             : 'Voltea dos cartas y une cada palabra con su significado. Entre menos movimientos, más puntos.',
     },
     puerquito: {
-        icono: '🐷', nombre: 'Puerquito Ahorrador', modulo: puerquito,
+        icono: '🐷', imagen: 'marranito', nombre: 'Puerquito Ahorrador', modulo: puerquito,
         desc: { ninos: 'Mueve tu alcancía y atrapa las monedas que caen.', otro: 'Atrapa monedas y billetes y esquiva antojos, deudas y fraudes.' },
         intro: (g) => g === 'ninos'
             ? 'Mueve la alcancía con el dedo o el mouse y atrapa las monedas y billetes. ¡Las cosas con círculo rojo son trampas!'
@@ -163,7 +170,10 @@ function pantallaInicio() {
             </div>
             <section class="hero">
                 <p class="etiqueta">${esc(c.evento?.nombre ?? 'Educación financiera')}${c.evento?.sede ? ` · ${esc(c.evento.sede)}` : ''}</p>
-                <h1>Reto <span>Finabien</span></h1>
+                <div class="titulo-marranito">
+                    <h1>Reto <span>Finabien</span></h1>
+                    ${marranito('marranito-hero', 'Alcancía de Financiera para el Bienestar')}
+                </div>
                 <p class="lema">Juega, aprende a cuidar tu dinero y junta puntos para ganar premios.</p>
                 <div class="acciones">
                     <button class="btn btn-xl" data-ir="registro">¡Quiero jugar!</button>
@@ -419,7 +429,7 @@ function pantallaHub() {
             : `<span class="estado-juego practica">Modo práctica · ya sumaste tus puntos aquí</span>`;
         return `
             <button class="juego-card jc-${clave}" data-juego="${clave}">
-                <span class="ilustra" aria-hidden="true">${info.icono}</span>
+                ${ilustracion(info)}
                 <h3>${esc(clave === 'clasifica' ? tituloClasifica : info.nombre)}</h3>
                 <p>${esc(info.desc[j.grupo] ?? info.desc.otro)}</p>
                 ${estado}
@@ -448,6 +458,10 @@ function pantallaHub() {
                 <button class="btn ${alcanzables.length ? 'btn-rosa' : 'btn-fantasma'}" style="width:100%" data-premios>
                     ${alcanzables.length ? `¡Canjear premio! (${alcanzables.length})` : 'Ver premios'}
                 </button>
+                <div class="fibi-linea fibi-consejo">
+                    ${fibi('fibi-mini')}
+                    <p><span class="etiqueta">FIBI te recomienda</span><br>${esc(DATOS[Math.floor(Math.random() * DATOS.length)])}</p>
+                </div>
                 ${j.canjes.length ? `<p class="etiqueta" style="margin-top:1.2rem">Mis premios</p>
                     <ul class="mis-premios">${j.canjes.map((c) => `<li><span>${esc(c.icono ?? '')} ${esc(c.premio)}</span><span>${c.entregado ? 'Entregado' : esc(c.folio)}</span></li>`).join('')}</ul>` : ''}
             </aside>
@@ -471,9 +485,12 @@ function pantallaIntro(clave) {
     const el = mostrar('intro', `
         <div class="barra"><button class="btn btn-chico btn-fantasma" data-volver>← Juegos</button><span class="empuja">${moneda(j.puntos)}</span></div>
         <div class="intro"><div class="caja">
-            <span class="ilustra" aria-hidden="true">${info.icono}</span>
+            ${ilustracion(info)}
             <h2>${esc(titulo)}</h2>
-            <p>${esc(info.intro(j.grupo))}</p>
+            <div class="fibi-linea">
+                ${fibi('fibi-mini')}
+                <p>${esc(info.intro(j.grupo))}</p>
+            </div>
             <p class="aviso">${cuenta ? 'Esta partida suma puntos.' : 'Ya sumaste puntos en este juego: esta partida es de práctica.'}</p>
             <p class="error" data-error></p>
             <button class="btn btn-xl" data-empezar>¡Empezar!</button>

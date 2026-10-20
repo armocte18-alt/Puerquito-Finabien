@@ -201,6 +201,21 @@ body.con-sucursal .lado .panel { background: rgb(27 74 66 / .86); backdrop-filte
 .fibi-linea { display: flex; align-items: center; gap: 1rem; max-width: 46rem; padding: .8rem 1.3rem .8rem .8rem; border-radius: 1.4rem; background: rgb(0 0 0 / .22); text-align: left; }
 .fibi-linea p { margin: 0; }
 .fibi-festeja { animation: salta 700ms ease-out; }
+.fibi-consejo { margin-top: 1.2rem; padding: .6rem 1rem .6rem .6rem; font-size: .95rem; }
+.fibi-consejo .fibi-mini { width: 4.2rem; height: 4.2rem; }
+.fibi-consejo .etiqueta { color: var(--oro); }
+
+/* El marranito: alcancía de FINABIEN. */
+.titulo-marranito { display: flex; align-items: center; gap: clamp(1rem, 3vw, 3rem); }
+.marranito-hero {
+    flex: none; width: clamp(8rem, min(16vw, 26vh), 15rem); height: auto;
+    filter: drop-shadow(0 1.2rem 1rem rgb(0 0 0 / .4)); animation: flotar 3.2s ease-in-out infinite;
+}
+@keyframes flotar { 50% { transform: translateY(-.8rem) rotate(-3deg); } }
+.ilustra-img { display: block; width: auto; height: 3.4rem; filter: drop-shadow(0 .3rem .3rem rgb(0 0 0 / .35)); }
+.intro .ilustra-img { height: 9rem; animation: flotar 3.2s ease-in-out infinite; }
+.cifras .con-marranito { position: relative; padding-right: 5.5rem; }
+.cifras .con-marranito img { position: absolute; right: .6rem; bottom: .4rem; width: 4.6rem; height: auto; }
 @keyframes salta { 40% { transform: translateY(-.7rem) rotate(-4deg); } }
 .ranking ol { list-style: none; margin: .8rem 0 0; padding: 0; display: grid; gap: .5rem; }
 .ranking li { display: flex; align-items: center; gap: .8rem; padding: .45rem .7rem; border-radius: .8rem; background: rgb(0 0 0 / .14); font-size: 1.1rem; }
@@ -522,6 +537,9 @@ body.con-sucursal .lado .panel { background: rgb(27 74 66 / .86); backdrop-filte
     box-shadow: inset 0 0 0 .25rem var(--linea);
 }
 .puerquito canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.fibi-juego { display: flex; align-items: center; justify-content: center; gap: 1rem; min-height: 3.6rem; }
+.fibi-juego .fibi-mini { width: 3.6rem; height: 3.6rem; border-width: .18rem; }
+.fibi-juego .evento-linea { min-height: 0; text-align: left; }
 
 /* ---------- Maratón de pagos ---------- */
 .maraton {

@@ -67,7 +67,7 @@
     ]
   },
   "resources/css/kiosco.css": {
-    "file": "assets/kiosco-BeG0J-Qq.css",
+    "file": "assets/kiosco-DCyT0z23.css",
     "name": "kiosco",
     "names": [
       "kiosco.css"
@@ -96,7 +96,7 @@
     "isEntry": true
   },
   "resources/js/kiosco/main.js": {
-    "file": "assets/main-CNZrCtsO.js",
+    "file": "assets/main-D7CW6Jlq.js",
     "name": "main",
     "src": "resources/js/kiosco/main.js",
     "isEntry": true

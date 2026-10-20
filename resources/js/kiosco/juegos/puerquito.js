@@ -38,7 +38,10 @@ export function puerquito(ctx) {
         <div class="puerquito" aria-label="Mueve la alcancía con el dedo, el mouse o las flechas para atrapar el dinero">
             <canvas></canvas>
         </div>
-        <p class="evento-linea" data-evento aria-live="polite">Atrapa monedas y billetes. Esquiva las trampas que le quitan a tu alcancía.</p>`;
+        <div class="fibi-juego">
+            <img class="fibi-mini" src="${datos.fibi}" alt="FIBI" onerror="this.hidden=true">
+            <p class="evento-linea" data-evento aria-live="polite">Atrapa monedas y billetes. Esquiva las trampas que le quitan a tu alcancía.</p>
+        </div>`;
 
     const escena = raiz.querySelector('.puerquito');
     const lienzo = escena.querySelector('canvas');
@@ -338,7 +341,7 @@ export function puerquito(ctx) {
                 titulo: d.trampas === 0 && d.ahorro > 0 ? '¡Alcancía sin trampas!' : d.ahorro >= d.disponible * 0.6 ? '¡Gran ahorro!' : '¡Buen intento!',
                 html: `
                     <div class="cifras">
-                        <div class="bien"><small>Tu alcancía juntó</small><b>${pesos(d.ahorro)}</b></div>
+                        <div class="bien con-marranito"><img src="${datos.sprite}" alt="" onerror="this.hidden=true"><small>Tu alcancía juntó</small><b>${pesos(d.ahorro)}</b></div>
                         <div><small>Monedas y billetes</small><b>${fmt(d.monedas + d.billetes)}</b></div>
                         <div class="${d.trampas ? 'mal' : 'bien'}"><small>Trampas atrapadas</small><b>${fmt(d.trampas)}</b></div>
                     </div>
