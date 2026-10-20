@@ -212,7 +212,11 @@ body.con-sucursal .lado .panel { background: rgb(27 74 66 / .86); backdrop-filte
     filter: drop-shadow(0 1.2rem 1rem rgb(0 0 0 / .4)); animation: flotar 3.2s ease-in-out infinite;
 }
 @keyframes flotar { 50% { transform: translateY(-.8rem) rotate(-3deg); } }
-.ilustra-img { display: block; width: auto; height: 3.4rem; filter: drop-shadow(0 .3rem .3rem rgb(0 0 0 / .35)); }
+/* align-self y aspect-ratio evitan que la tarjeta (flex en columna) estire al marranito a lo ancho. */
+.ilustra-img {
+    display: block; align-self: flex-start; flex: none; width: auto; height: 3.4rem; aspect-ratio: 921 / 789;
+    object-fit: contain; filter: drop-shadow(0 .3rem .3rem rgb(0 0 0 / .35));
+}
 .intro .ilustra-img { height: 9rem; animation: flotar 3.2s ease-in-out infinite; }
 .cifras .con-marranito { position: relative; padding-right: 5.5rem; }
 .cifras .con-marranito img { position: absolute; right: .6rem; bottom: .4rem; width: 4.6rem; height: auto; }
