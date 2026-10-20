@@ -13,7 +13,7 @@ Este proyecto reúne en una sola aplicación Laravel lo que antes eran dos repos
 | **Trivia Bienestar** | Preguntas de opción múltiple con tiempo. | 50 por acierto + hasta 25 por rapidez |
 | **Decide rápido** | Mandar cada tarjeta a la cubeta correcta antes de que se acabe el tiempo. Para menores es "¿Necesidad o deseo?"; para 16+ es "¿Buena decisión o riesgo?". | 20 por acierto |
 | **Memorama** | Unir cada concepto con su significado (para niñas y niños, dibujos iguales). | 300 menos 10 por movimiento extra |
-| **Puerquito Ahorrador** | Mover la alcancía para atrapar monedas y billetes y esquivar trampas (antojos, gasto hormiga, deudas, fraudes, billetes falsos). Racha por atrapar seguido, estrella ×2 e imán. | Hasta 300 según el dinero atrapado |
+| **Puerquito Ahorrador** | Mover la alcancía para atrapar monedas y billetes y esquivar trampas (antojos, gasto hormiga, deudas, fraudes, billetes falsos). Racha por atrapar seguido, estrella ×2, imán y la **Tarjeta FINABIEN**, que protege de la siguiente trampa. | Hasta 300 según el dinero atrapado |
 
 ### Conoce los servicios FINABIEN
 
@@ -44,6 +44,7 @@ Los rangos y las reglas de cada juego se ajustan en [config/reto.php](config/ret
 - **API** (`/api/*`): sin sesión ni CSRF para que una pantalla encendida todo el día no caduque, con límites de peticiones por IP. Las respuestas correctas nunca se envían al navegador: el servidor califica cada respuesta y abona los puntos. En los arcade (remesa, cosecha, maratón y puerquito) el servidor genera la partida y recalcula los puntos con lo que reporta el kiosco.
 - **Panel de staff** (`/staff`, protegido con `STAFF_PIN`): entregar premios por folio, existencias, preguntas de trivia, eventos y descarga CSV de jugadores y canjes.
 - **Código de jugador**: 5 letras y números sin caracteres confusos (0/O, 1/I/L). Con él una persona sigue sumando en cualquier pantalla del stand.
+- **Imágenes institucionales** (en `public/img`, se reemplazan sin tocar código): `fibi.png` (FIBI), `alcancia-sprite.png` (el marranito), `tarjeta-finabien.png` (Tarjeta FINABIEN, en la remesa, los cierres, los datos de FIBI y el Puerquito), logotipos y foto de sucursal.
 - **Controles del Puerquito**: dedo o mouse sobre el escenario, flechas `←` `→` o `A` `D`, o un control de videojuegos.
 
 ## Instalación en Windows (`C:\Servidor\www`)

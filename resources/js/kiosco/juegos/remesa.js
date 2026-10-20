@@ -33,7 +33,7 @@ export function remesa(ctx) {
         </div>
         <div class="remesa" aria-label="Camino de la remesa: toca un carril o usa las flechas arriba y abajo">
             <div class="carril"></div><div class="carril"></div><div class="carril"></div>
-            <div class="tarjeta-fb" data-tarjeta><b>FINABIEN</b><small>Tarjeta</small></div>
+            <div class="tarjeta-fb" data-tarjeta><img src="${datos.tarjeta}" alt="Tarjeta FINABIEN"></div>
         </div>
         <p class="evento-linea" data-evento aria-live="polite">Junta lo que suma y esquiva lo que le quita valor a tu envío.</p>`;
 

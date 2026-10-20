@@ -143,8 +143,9 @@ return [
                 'jovenes' => ['antojo' => 2, 'hormiga' => 2, 'tarjeta' => 1],
                 'adultos' => ['hormiga' => 2, 'tarjeta' => 2, 'anzuelo' => 2, 'falso' => 2],
             ],
-            'poderes' => ['estrella' => 1, 'iman' => 1],
+            'poderes' => ['estrella' => 1, 'iman' => 1, 'tarjetafb' => 1],
             'estrella_seg' => 8,   // puntos ×2
+            // tarjetafb (Tarjeta FINABIEN): protege de la siguiente trampa, sin perder puntos ni racha.
             'iman_seg' => 6,       // atrae el dinero hacia la alcancía
             'racha' => ['cada' => 5, 'incremento' => 0.5, 'maximo' => 2], // multiplicador por atrapadas seguidas
             'puntos_min' => 20,

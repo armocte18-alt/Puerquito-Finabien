@@ -60,6 +60,7 @@ class JuegosServicios
             'segundos' => $cfg['segundos'][$grupo],
             'viaje_ms' => $viaje,
             'dolares' => $cfg['dolares'],
+            'tarjeta' => asset('img/tarjeta-finabien.png'),
             'piezas' => $piezas,
             'cierre' => config('reto_servicios.remesa.cierre'),
         ];
@@ -204,6 +205,7 @@ class JuegosServicios
             'poderes' => $contenido['poderes'],
             'sprite' => asset('img/alcancia-sprite.png'),
             'fibi' => asset('img/fibi.png'),
+            'tarjeta' => asset('img/tarjeta-finabien.png'),
             'cierre' => $contenido['cierre'][$grupo],
         ];
 
@@ -383,8 +385,9 @@ class JuegosServicios
         $contenido = config('reto_servicios.puerquito');
         $racha = $cfg['racha'];
         $bruto = 0.0;
-        $seguidas = $mejorRacha = $ahorro = $monedas = $billetes = $trampas = 0;
+        $seguidas = $mejorRacha = $ahorro = $monedas = $billetes = $trampas = $protegidas = 0;
         $estrellaHasta = -1;
+        $escudo = false;
 
         // Se recorren en el orden en que llegaron a la alcancía para reconstruir la racha.
         foreach ($atrapados->sortBy(fn ($i) => $i['t'] + $i['caida']) as $item) {
@@ -399,12 +402,18 @@ class JuegosServicios
                 $bruto += $contenido['dinero'][$tipo]['puntos'] * $multiplicador;
                 $ahorro += $contenido['dinero'][$tipo]['valor'];
                 str_starts_with($tipo, 'm') ? $monedas++ : $billetes++;
+            } elseif (isset($contenido['trampas'][$tipo]) && $escudo) {
+                // La Tarjeta FINABIEN absorbe la trampa: no resta ni corta la racha.
+                $escudo = false;
+                $protegidas++;
             } elseif (isset($contenido['trampas'][$tipo])) {
                 $seguidas = 0;
                 $bruto += $contenido['trampas'][$tipo]['puntos'];
                 $trampas++;
             } elseif ($tipo === 'estrella') {
                 $estrellaHasta = $llega + $cfg['estrella_seg'] * 1000;
+            } elseif ($tipo === 'tarjetafb') {
+                $escudo = true;
             }
         }
 
@@ -423,6 +432,7 @@ class JuegosServicios
                 'monedas' => $monedas,
                 'billetes' => $billetes,
                 'trampas' => $trampas,
+                'protegidas' => $protegidas,
                 'mejor_racha' => $mejorRacha,
             ],
         ];

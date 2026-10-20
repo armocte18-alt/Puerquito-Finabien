@@ -22,6 +22,7 @@ export function puerquito(ctx) {
     const chispas = [];
     const lecciones = new Set();
     const poderes = { estrella: 0, iman: 0 }; // ms en que termina cada poder
+    let escudo = false; // la Tarjeta FINABIEN protege de la siguiente trampa
     const reducir = matchMedia('(prefers-reduced-motion: reduce)').matches;
     const entrada = { izq: false, der: false, punteroX: null, ultimo: 'puntero' };
     let ahorro = 0;
@@ -53,6 +54,8 @@ export function puerquito(ctx) {
 
     const sprite = new Image();
     sprite.src = datos.sprite;
+    const tarjeta = new Image();
+    tarjeta.src = datos.tarjeta;
 
     const vista = { W: 1, H: 1, dpr: 1 };
     const alcancia = { x: 0.5, inclina: 0, aplasta: 0, sacude: 0 };
@@ -74,7 +77,7 @@ export function puerquito(ctx) {
     };
     const anchoAlcancia = () => Math.min(vista.W * ANCHO_ALCANCIA, (vista.H * 0.42) / PROPORCION);
     // Billetes (y el billete falso) más grandes que las monedas; trampas y poderes en medio.
-    const tamano = (tipo) => vista.H * datos.escala * (tipo.startsWith('b') || tipo === 'falso' ? 0.2 : tipo.startsWith('m') ? 0.12 : 0.14);
+    const tamano = (tipo) => vista.H * datos.escala * (tipo.startsWith('b') || tipo === 'falso' || tipo === 'tarjetafb' ? 0.2 : tipo.startsWith('m') ? 0.12 : 0.14);
 
     function pintarMarcador() {
         const r = racha();
@@ -117,6 +120,12 @@ export function puerquito(ctx) {
             if (seguidas % datos.racha.cada === 0 && 1 + (seguidas / datos.racha.cada) * datos.racha.incremento <= datos.racha.maximo) {
                 flotante(`¡Racha ×${String(racha()).replace('.', ',')}!`, alcancia.x * vista.W, y - vista.H * 0.14, '#56d6c9');
             }
+        } else if (datos.trampas[tipo] && escudo) {
+            escudo = false;
+            sonido.bien();
+            lluvia(x, y, ['#8ecbff', '#ffffff', '#5fd982'], 16);
+            flotante('¡Protegido!', alcancia.x * vista.W, y - vista.H * 0.12, '#8ecbff');
+            evento(`💳 Tu Tarjeta FINABIEN te protegió de: ${datos.trampas[tipo].texto}`);
         } else if (datos.trampas[tipo]) {
             const tr = datos.trampas[tipo];
             seguidas = 0;
@@ -128,6 +137,12 @@ export function puerquito(ctx) {
             // Cada trampa enseña su lección la primera vez.
             evento(lecciones.has(tipo) ? `${tr.texto} Cuidado: le quitó a tu alcancía.` : `${tr.texto} ${tr.leccion}`, true);
             lecciones.add(tipo);
+        } else if (tipo === 'tarjetafb') {
+            escudo = true;
+            sonido.premio();
+            lluvia(x, y, ['#8ecbff', '#ffffff', '#5fd982', '#ffd84d'], 22);
+            flotante(datos.poderes.tarjetafb.texto, alcancia.x * vista.W, y - vista.H * 0.12, '#8ecbff');
+            evento(`💳 ${datos.poderes.tarjetafb.leccion}`);
         } else {
             poderes[tipo] = ahora + (tipo === 'estrella' ? datos.estrella_seg : datos.iman_seg) * 1000;
             sonido.premio();
@@ -250,7 +265,7 @@ export function puerquito(ctx) {
             const tam = tamano(tipo);
             g.save();
             g.translate(a.xActual ?? a.x, a.y);
-            if (tipo.startsWith('b') || tipo === 'falso') g.rotate(Math.sin((t - a.item.t) / 250 + a.fase) * 0.3);
+            if (tipo.startsWith('b') || tipo === 'falso' || tipo === 'tarjetafb') g.rotate(Math.sin((t - a.item.t) / 250 + a.fase) * 0.3);
             if (datos.trampas[tipo] && datos.resaltar_trampas && tipo !== 'falso') {
                 // Halo rojo para que los más pequeños reconozcan las trampas.
                 g.strokeStyle = `rgb(255 107 91 / ${0.55 + Math.sin(t / 125) * 0.2})`;
@@ -261,7 +276,8 @@ export function puerquito(ctx) {
                 g.stroke();
                 g.setLineDash([]);
             }
-            Dibujo.objeto(g, tipo, tam, (t - a.item.t) / 1000 + a.fase);
+            if (tipo === 'tarjetafb') dibujarTarjeta(tam, t);
+            else Dibujo.objeto(g, tipo, tam, (t - a.item.t) / 1000 + a.fase);
             g.restore();
         }
 
@@ -290,6 +306,21 @@ export function puerquito(ctx) {
         g.globalAlpha = 1;
     }
 
+    function dibujarTarjeta(tam, t) {
+        const w = tam * 0.98;
+        const h = w * (169 / 283);
+        g.shadowColor = '#8ecbff';
+        g.shadowBlur = tam * (0.18 + Math.sin(t / 150) * 0.06);
+        if (tarjeta.complete && tarjeta.naturalWidth) {
+            g.drawImage(tarjeta, -w / 2, -h / 2, w, h);
+        } else {
+            g.fillStyle = '#f4f7f2';
+            Dibujo.redondeado(g, -w / 2, -h / 2, w, h, tam * 0.06);
+            g.fill();
+        }
+        g.shadowBlur = 0;
+    }
+
     function dibujarAlcancia(t) {
         const { H, W } = vista;
         const ancho = anchoAlcancia();
@@ -303,8 +334,8 @@ export function puerquito(ctx) {
         g.fill();
 
         // Aura mientras dura un poder.
-        if (poderes.estrella > t || poderes.iman > t) {
-            const color = poderes.estrella > t ? '255 216 77' : '255 112 150';
+        if (poderes.estrella > t || poderes.iman > t || escudo) {
+            const color = poderes.estrella > t ? '255 216 77' : poderes.iman > t ? '255 112 150' : '142 203 255';
             const aura = g.createRadialGradient(x, suelo - alto / 2, 10, x, suelo - alto / 2, ancho * 0.8);
             aura.addColorStop(0, `rgb(${color} / .4)`);
             aura.addColorStop(1, `rgb(${color} / 0)`);
@@ -345,7 +376,7 @@ export function puerquito(ctx) {
                         <div><small>Monedas y billetes</small><b>${fmt(d.monedas + d.billetes)}</b></div>
                         <div class="${d.trampas ? 'mal' : 'bien'}"><small>Trampas atrapadas</small><b>${fmt(d.trampas)}</b></div>
                     </div>
-                    <p>Mejor racha: ${fmt(d.mejor_racha)} seguidas · Cayeron ${pesos(d.disponible)} en total</p>`,
+                    <p>Mejor racha: ${fmt(d.mejor_racha)} seguidas · Cayeron ${pesos(d.disponible)} en total${d.protegidas ? ` · Tu Tarjeta FINABIEN te protegió ${d.protegidas === 1 ? 'de 1 trampa' : `de ${d.protegidas} trampas`}` : ''}</p>`,
                 cierre: datos.cierre,
             });
         } catch (e) {

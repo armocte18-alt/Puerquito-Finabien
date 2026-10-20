@@ -56,11 +56,15 @@ export async function cuentaRegresiva(contenedor, sigue = () => true) {
     return sigue();
 }
 
-/** Tarjeta "Así te ayuda FINABIEN" del final de los juegos de servicios. El contenido viene de config/reto_servicios.php. */
-export function cierreFinabien(cierre) {
+/**
+ * Tarjeta "Así te ayuda FINABIEN" del final de los juegos de servicios. El contenido viene de config/reto_servicios.php;
+ * si trae "imagen" (un archivo de public/img), se muestra a un lado.
+ */
+export function cierreFinabien(cierre, raiz = '') {
     if (!cierre) return '';
     return `
-        <div class="cierre-finabien">
+        <div class="cierre-finabien ${cierre.imagen ? 'con-imagen' : ''}">
+            ${cierre.imagen ? `<img class="tarjeta-img" src="${raiz}/img/${esc(cierre.imagen)}" alt="Tarjeta FINABIEN" onerror="this.hidden=true">` : ''}
             <p class="etiqueta">Así te ayuda FINABIEN</p>
             <h3>${esc(cierre.titulo)}</h3>
             <ul>${cierre.puntos.map((p) => `<li>${esc(p)}</li>`).join('')}</ul>

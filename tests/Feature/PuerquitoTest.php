@@ -97,6 +97,30 @@ class PuerquitoTest extends TestCase
         $this->assertSame(5000, $fin['detalle']['ahorro']);
     }
 
+    public function test_la_tarjeta_finabien_protege_de_la_siguiente_trampa(): void
+    {
+        $d = $this->iniciar();
+        $item = fn ($id, $t, $tipo) => ['id' => $id, 't' => $t, 'caida' => 1000, 'x' => 50, 'zig' => 0, 'tipo' => $tipo];
+        Partida::find($d['partida'])->update(['items' => [
+            $item(0, 500, 'tarjetafb'),
+            $item(1, 1000, 'm10'),
+            $item(2, 1500, 'anzuelo'),  // protegida: no resta ni corta la racha
+            $item(3, 2000, 'm10'),
+            $item(4, 2500, 'anzuelo'),  // ya sin tarjeta: sí resta
+        ]]);
+        $this->travel(60)->seconds();
+
+        $fin = $this->postJson("/api/partidas/{$d['partida']}/terminar", ['atrapados' => [0, 1, 2, 3, 4]])->assertOk()->json();
+
+        $contenido = config('reto_servicios.puerquito');
+        $m10 = $contenido['dinero']['m10']['puntos'];
+        $esperado = (int) round(300 * (2 * $m10 + $contenido['trampas']['anzuelo']['puntos']) / (2 * $m10));
+        $this->assertSame(max(config('reto.juegos.puerquito.puntos_min'), $esperado), $fin['puntos']);
+        $this->assertSame(1, $fin['detalle']['protegidas']);
+        $this->assertSame(1, $fin['detalle']['trampas']);
+        $this->assertSame(2, $fin['detalle']['mejor_racha']);
+    }
+
     public function test_aparece_en_el_kiosco_y_cuenta_para_el_limite_de_partidas(): void
     {
         $this->getJson('/api/configuracion')->assertOk()->assertJsonPath('juegos.puerquito.nombre', 'Puerquito Ahorrador');

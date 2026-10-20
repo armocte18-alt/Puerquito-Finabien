@@ -25,6 +25,10 @@ const fibi = (clase, alt = 'FIBI, imagen institucional de FINABIEN') =>
 const IMG_MARRANITO = `${RAIZ}/img/alcancia-sprite.png`;
 const marranito = (clase, alt = '') =>
     `<img class="${clase}" src="${IMG_MARRANITO}" alt="${alt}" onerror="this.hidden=true">`;
+const IMG_TARJETA = `${RAIZ}/img/tarjeta-finabien.png`;
+const tarjetaFinabien = (visible = true) =>
+    `<img class="tarjeta-img" src="${IMG_TARJETA}" alt="Tarjeta FINABIEN" ${visible ? '' : 'hidden'} onerror="this.remove()" data-tarjeta-fb>`;
+const hablaDeTarjeta = (texto) => /tarjeta finabien/i.test(texto);
 const ilustracion = (info, clase = 'ilustra') => info.imagen === 'marranito'
     ? marranito(`${clase} ilustra-img`)
     : `<span class="${clase}" aria-hidden="true">${info.icono}</span>`;
@@ -187,6 +191,7 @@ function pantallaInicio() {
                     <div class="globo" aria-live="polite">
                         <p class="etiqueta">FIBI te cuenta</p>
                         <p data-dato>${esc(DATOS[0])}</p>
+                        ${tarjetaFinabien(hablaDeTarjeta(DATOS[0]))}
                     </div>
                 </div>
             </section>
@@ -223,6 +228,8 @@ function pantallaInicio() {
     S.intervalos.push(setInterval(() => {
         dato = (dato + 1) % DATOS.length;
         el.querySelector('[data-dato]').textContent = DATOS[dato];
+        const img = el.querySelector('[data-tarjeta-fb]');
+        if (img) img.hidden = !hablaDeTarjeta(DATOS[dato]);
     }, 8000));
 
     // Rota el ranking entre grupos y lo refresca para que la TV siempre se vea viva.
@@ -443,6 +450,7 @@ function pantallaHub() {
            <p class="falta">Te faltan ${fmt(proximo.costo - j.puntos)} puntos.</p>`
         : `<p class="etiqueta">Premios</p><h3>¡Tienes puntos para el premio mayor!</h3>`;
 
+    const consejo = DATOS[Math.floor(Math.random() * DATOS.length)];
     const el = mostrar('hub', `
         ${barraJugador(j)}
         <div class="hub">
@@ -460,7 +468,7 @@ function pantallaHub() {
                 </button>
                 <div class="fibi-linea fibi-consejo">
                     ${fibi('fibi-mini')}
-                    <p><span class="etiqueta">FIBI te recomienda</span><br>${esc(DATOS[Math.floor(Math.random() * DATOS.length)])}</p>
+                    <p><span class="etiqueta">FIBI te recomienda</span><br>${esc(consejo)}${hablaDeTarjeta(consejo) ? `<br>${tarjetaFinabien()}` : ''}</p>
                 </div>
                 ${j.canjes.length ? `<p class="etiqueta" style="margin-top:1.2rem">Mis premios</p>
                     <ul class="mis-premios">${j.canjes.map((c) => `<li><span>${esc(c.icono ?? '')} ${esc(c.premio)}</span><span>${c.entregado ? 'Entregado' : esc(c.folio)}</span></li>`).join('')}</ul>` : ''}
@@ -569,7 +577,7 @@ function pantallaResultado(resumen, repaso = [], cierre = null) {
             <div class="grande"><span class="moneda" aria-hidden="true"></span>${r.cuenta_puntos ? '+' : ''}${fmt(r.puntos)}</div>
             ${detalle}
             ${nota}
-            ${cierreFinabien(cierre?.cierre)}
+            ${cierreFinabien(cierre?.cierre, RAIZ)}
             ${repaso.length ? `<div class="repaso"><p class="etiqueta">Para repasar</p>${repaso.slice(0, 3).map((x) => `<div><strong>${esc(x.titulo)}</strong><span>${esc(x.texto)}</span></div>`).join('')}</div>` : ''}
             <div class="acciones">
                 <button class="btn btn-xl" data-otro>Jugar otro juego</button>

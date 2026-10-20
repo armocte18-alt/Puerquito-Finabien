@@ -29,6 +29,7 @@ return [
         'pesos' => ['moneda' => 6, 'directo' => 2, 'boveda' => 1, 'efectivo' => 3, 'fantasma' => 2, 'cambio' => 2, 'fraude' => 1],
         'cierre' => [
             'titulo' => 'La Tarjeta FINABIEN cuida tu envío',
+            'imagen' => 'tarjeta-finabien.png', // en public/img
             'puntos' => [
                 'Quienes viven en Estados Unidos la tramitan sin costo en consulados de México o en línea.',
                 'Las transferencias entre cuentas llegan de inmediato a la Tarjeta FINABIEN de tu familia.',
@@ -159,6 +160,7 @@ return [
         ],
         'cierre' => [
             'titulo' => 'FINABIEN impulsa a quienes emprenden',
+            'imagen' => 'tarjeta-finabien.png',
             'puntos' => [
                 'FINABIEN ha otorgado créditos solidarios a personas emprendedoras; el dinero se deposita en la Tarjeta FINABIEN.',
                 'Un crédito formal te dice por escrito la tasa, el CAT y los plazos. Compara antes de firmar.',
@@ -218,6 +220,7 @@ return [
         'poderes' => [
             'estrella' => ['texto' => '¡Puntos ×2!'],
             'iman' => ['texto' => '¡Imán de ahorro!'],
+            'tarjetafb' => ['texto' => '¡Tarjeta FINABIEN!', 'leccion' => 'Tu dinero en una cuenta está más protegido que en efectivo: tu tarjeta te cuida de la siguiente trampa.'],
         ],
         // Se muestran al final, como la tarjeta "Así te ayuda FINABIEN" de los demás arcade.
         'cierre' => [
