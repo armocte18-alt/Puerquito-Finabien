@@ -94,6 +94,14 @@ líneas `DB_*` y crea el archivo vacío `database/database.sqlite`.
 | GET | `/puntajes/{grupo}` | Top 10 del rango (JSON) |
 | POST | `/puntajes` | Guarda una partida (CSRF, límite de 30 por minuto) |
 
+## Borrar puntajes de prueba
+
+```sh
+php artisan puntajes:limpiar               # todos los rangos (pide confirmación)
+php artisan puntajes:limpiar pequenos      # solo un rango: pequenos, exploradores o expertos
+php artisan puntajes:limpiar --force       # sin confirmación
+```
+
 ## Pruebas
 
 ```sh

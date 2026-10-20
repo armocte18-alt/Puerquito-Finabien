@@ -98,4 +98,24 @@ class JuegoTest extends TestCase
         $this->assertSame($puntos->sortDesc()->values()->all(), $puntos->all());
         $this->assertNotContains(999999, $puntos);
     }
+
+    public function test_el_comando_limpia_los_puntajes(): void
+    {
+        Puntaje::factory()->count(3)->create(['grupo' => 'pequenos']);
+        Puntaje::factory()->count(2)->create(['grupo' => 'expertos']);
+
+        $this->artisan('puntajes:limpiar', ['grupo' => 'pequenos', '--force' => true])->assertSuccessful();
+        $this->assertSame(0, Puntaje::where('grupo', 'pequenos')->count());
+        $this->assertSame(2, Puntaje::count());
+
+        $this->artisan('puntajes:limpiar')
+            ->expectsConfirmation('Se borrarán 2 puntajes de todos los rangos. ¿Continuar?', 'no')
+            ->assertSuccessful();
+        $this->assertSame(2, Puntaje::count());
+
+        $this->artisan('puntajes:limpiar', ['--force' => true])->assertSuccessful();
+        $this->assertSame(0, Puntaje::count());
+
+        $this->artisan('puntajes:limpiar', ['grupo' => 'abuelos'])->assertFailed();
+    }
 }
