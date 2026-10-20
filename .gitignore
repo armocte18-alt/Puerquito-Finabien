@@ -24,3 +24,11 @@ _ide_helper.php
 Homestead.json
 Homestead.yaml
 Thumbs.db
+
+# Certificados y llaves (SSL/HTTPS del servidor): nunca se suben al repositorio.
+*.crt
+*.key
+*.pem
+*.csr
+*.pfx
+*.p12
