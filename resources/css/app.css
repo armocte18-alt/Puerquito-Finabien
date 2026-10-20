@@ -1,9 +1,18 @@
+/* Panel de staff (Tailwind). El kiosco usa resources/css/kiosco.css. */
+@import '@fontsource/atkinson-hyperlegible/400.css';
+@import '@fontsource/atkinson-hyperlegible/700.css';
 @import 'tailwindcss';
 
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
 @source '../../storage/framework/views/*.php';
 
 @theme {
-    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+    --font-sans: 'Atkinson Hyperlegible', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
         'Segoe UI Symbol', 'Noto Color Emoji';
+    --color-billete-950: #0b2723;
+    --color-billete-900: #0f2e29;
+    --color-billete-700: #1e5249;
+    --color-billete-100: #e3efeb;
+    --color-oro-400: #f5b83d;
+    --color-oro-600: #c98a12;
 }

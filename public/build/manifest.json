@@ -1,0 +1,104 @@
+{
+  "node_modules/@fontsource/atkinson-hyperlegible/files/atkinson-hyperlegible-latin-400-normal.woff": {
+    "file": "assets/atkinson-hyperlegible-latin-400-normal-BbWidj28.woff",
+    "src": "node_modules/@fontsource/atkinson-hyperlegible/files/atkinson-hyperlegible-latin-400-normal.woff"
+  },
+  "node_modules/@fontsource/atkinson-hyperlegible/files/atkinson-hyperlegible-latin-400-normal.woff2": {
+    "file": "assets/atkinson-hyperlegible-latin-400-normal-BrHNak5F.woff2",
+    "src": "node_modules/@fontsource/atkinson-hyperlegible/files/atkinson-hyperlegible-latin-400-normal.woff2"
+  },
+  "node_modules/@fontsource/atkinson-hyperlegible/files/atkinson-hyperlegible-latin-700-normal.woff": {
+    "file": "assets/atkinson-hyperlegible-latin-700-normal-BK6Glc0m.woff",
+    "src": "node_modules/@fontsource/atkinson-hyperlegible/files/atkinson-hyperlegible-latin-700-normal.woff"
+  },
+  "node_modules/@fontsource/atkinson-hyperlegible/files/atkinson-hyperlegible-latin-700-normal.woff2": {
+    "file": "assets/atkinson-hyperlegible-latin-700-normal-GZI4o3u0.woff2",
+    "src": "node_modules/@fontsource/atkinson-hyperlegible/files/atkinson-hyperlegible-latin-700-normal.woff2"
+  },
+  "node_modules/@fontsource/atkinson-hyperlegible/files/atkinson-hyperlegible-latin-ext-400-normal.woff": {
+    "file": "assets/atkinson-hyperlegible-latin-ext-400-normal-Bbz-b3yf.woff",
+    "src": "node_modules/@fontsource/atkinson-hyperlegible/files/atkinson-hyperlegible-latin-ext-400-normal.woff"
+  },
+  "node_modules/@fontsource/atkinson-hyperlegible/files/atkinson-hyperlegible-latin-ext-400-normal.woff2": {
+    "file": "assets/atkinson-hyperlegible-latin-ext-400-normal-DRk46D-x.woff2",
+    "src": "node_modules/@fontsource/atkinson-hyperlegible/files/atkinson-hyperlegible-latin-ext-400-normal.woff2"
+  },
+  "node_modules/@fontsource/atkinson-hyperlegible/files/atkinson-hyperlegible-latin-ext-700-normal.woff": {
+    "file": "assets/atkinson-hyperlegible-latin-ext-700-normal-CKkU2Dpt.woff",
+    "src": "node_modules/@fontsource/atkinson-hyperlegible/files/atkinson-hyperlegible-latin-ext-700-normal.woff"
+  },
+  "node_modules/@fontsource/atkinson-hyperlegible/files/atkinson-hyperlegible-latin-ext-700-normal.woff2": {
+    "file": "assets/atkinson-hyperlegible-latin-ext-700-normal-BoVPHkS0.woff2",
+    "src": "node_modules/@fontsource/atkinson-hyperlegible/files/atkinson-hyperlegible-latin-ext-700-normal.woff2"
+  },
+  "node_modules/@fontsource/lilita-one/files/lilita-one-latin-400-normal.woff": {
+    "file": "assets/lilita-one-latin-400-normal-DXkechA3.woff",
+    "src": "node_modules/@fontsource/lilita-one/files/lilita-one-latin-400-normal.woff"
+  },
+  "node_modules/@fontsource/lilita-one/files/lilita-one-latin-400-normal.woff2": {
+    "file": "assets/lilita-one-latin-400-normal-87r-Z-Re.woff2",
+    "src": "node_modules/@fontsource/lilita-one/files/lilita-one-latin-400-normal.woff2"
+  },
+  "node_modules/@fontsource/lilita-one/files/lilita-one-latin-ext-400-normal.woff": {
+    "file": "assets/lilita-one-latin-ext-400-normal-QROd2hfm.woff",
+    "src": "node_modules/@fontsource/lilita-one/files/lilita-one-latin-ext-400-normal.woff"
+  },
+  "node_modules/@fontsource/lilita-one/files/lilita-one-latin-ext-400-normal.woff2": {
+    "file": "assets/lilita-one-latin-ext-400-normal-DxX3B4s6.woff2",
+    "src": "node_modules/@fontsource/lilita-one/files/lilita-one-latin-ext-400-normal.woff2"
+  },
+  "resources/css/app.css": {
+    "file": "assets/app-Px7wWgOS.css",
+    "name": "app",
+    "names": [
+      "app.css"
+    ],
+    "src": "resources/css/app.css",
+    "isEntry": true,
+    "assets": [
+      "assets/atkinson-hyperlegible-latin-ext-400-normal-DRk46D-x.woff2",
+      "assets/atkinson-hyperlegible-latin-ext-400-normal-Bbz-b3yf.woff",
+      "assets/atkinson-hyperlegible-latin-400-normal-BrHNak5F.woff2",
+      "assets/atkinson-hyperlegible-latin-400-normal-BbWidj28.woff",
+      "assets/atkinson-hyperlegible-latin-ext-700-normal-BoVPHkS0.woff2",
+      "assets/atkinson-hyperlegible-latin-ext-700-normal-CKkU2Dpt.woff",
+      "assets/atkinson-hyperlegible-latin-700-normal-GZI4o3u0.woff2",
+      "assets/atkinson-hyperlegible-latin-700-normal-BK6Glc0m.woff"
+    ]
+  },
+  "resources/css/kiosco.css": {
+    "file": "assets/kiosco-BeG0J-Qq.css",
+    "name": "kiosco",
+    "names": [
+      "kiosco.css"
+    ],
+    "src": "resources/css/kiosco.css",
+    "isEntry": true,
+    "assets": [
+      "assets/lilita-one-latin-ext-400-normal-DxX3B4s6.woff2",
+      "assets/lilita-one-latin-ext-400-normal-QROd2hfm.woff",
+      "assets/lilita-one-latin-400-normal-87r-Z-Re.woff2",
+      "assets/lilita-one-latin-400-normal-DXkechA3.woff",
+      "assets/atkinson-hyperlegible-latin-ext-400-normal-DRk46D-x.woff2",
+      "assets/atkinson-hyperlegible-latin-ext-400-normal-Bbz-b3yf.woff",
+      "assets/atkinson-hyperlegible-latin-400-normal-BrHNak5F.woff2",
+      "assets/atkinson-hyperlegible-latin-400-normal-BbWidj28.woff",
+      "assets/atkinson-hyperlegible-latin-ext-700-normal-BoVPHkS0.woff2",
+      "assets/atkinson-hyperlegible-latin-ext-700-normal-CKkU2Dpt.woff",
+      "assets/atkinson-hyperlegible-latin-700-normal-GZI4o3u0.woff2",
+      "assets/atkinson-hyperlegible-latin-700-normal-BK6Glc0m.woff"
+    ]
+  },
+  "resources/js/app.js": {
+    "file": "assets/app-BvRk9kiK.js",
+    "name": "app",
+    "src": "resources/js/app.js",
+    "isEntry": true
+  },
+  "resources/js/kiosco/main.js": {
+    "file": "assets/main-CNZrCtsO.js",
+    "name": "main",
+    "src": "resources/js/kiosco/main.js",
+    "isEntry": true
+  }
+}

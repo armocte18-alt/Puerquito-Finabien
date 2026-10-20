@@ -1,13 +1,36 @@
 <?php
 
-use App\Http\Controllers\JuegoController;
-use App\Http\Controllers\PuntajeController;
+use App\Http\Controllers\StaffController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', [JuegoController::class, 'inicio'])->name('inicio');
-Route::get('/jugar/{grupo}', [JuegoController::class, 'jugar'])->name('jugar');
+// Kiosco (pantalla de juegos para TV o tablet).
+Route::view('/', 'kiosco')->name('kiosco');
 
-Route::get('/puntajes/{grupo}', [PuntajeController::class, 'index'])->name('puntajes.index');
-Route::post('/puntajes', [PuntajeController::class, 'store'])
-    ->middleware('throttle:30,1')
-    ->name('puntajes.store');
+// Panel del personal del stand.
+Route::prefix('staff')->name('staff.')->controller(StaffController::class)->group(function () {
+    Route::get('entrar', 'formEntrar')->name('entrar');
+    Route::post('entrar', 'entrar')->middleware('throttle:pin-staff');
+
+    Route::middleware('staff')->group(function () {
+        Route::post('salir', 'salir')->name('salir');
+        Route::get('/', 'inicio')->name('inicio');
+        Route::post('canjes/{canje}/entregar', 'entregar')->name('entregar');
+
+        Route::get('premios', 'premios')->name('premios');
+        Route::post('premios', 'guardarPremio')->name('premios.crear');
+        Route::put('premios/{premio}', 'guardarPremio')->name('premios.guardar');
+
+        Route::get('preguntas', 'preguntas')->name('preguntas');
+        Route::get('preguntas/nueva', 'formPregunta')->name('preguntas.nueva');
+        Route::post('preguntas', 'guardarPregunta')->name('preguntas.crear');
+        Route::get('preguntas/{pregunta}', 'formPregunta')->name('preguntas.editar');
+        Route::put('preguntas/{pregunta}', 'guardarPregunta')->name('preguntas.guardar');
+        Route::patch('preguntas/{pregunta}/alternar', 'alternarPregunta')->name('preguntas.alternar');
+
+        Route::get('eventos', 'eventos')->name('eventos');
+        Route::post('eventos', 'guardarEvento')->name('eventos.crear');
+        Route::post('eventos/{evento}/activar', 'activarEvento')->name('eventos.activar');
+
+        Route::get('exportar/{tipo}', 'exportar')->name('exportar');
+    });
+});
